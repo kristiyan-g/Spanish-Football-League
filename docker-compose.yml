@@ -1,0 +1,6 @@
+services:
+  spanish.football.league.api:
+    image: ${DOCKER_REGISTRY-}spanishfootballleagueapi
+    build:
+      context: .
+      dockerfile: Api/Spanish.Football.League.Api/Dockerfile
