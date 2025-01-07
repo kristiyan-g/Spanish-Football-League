@@ -3,9 +3,103 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{27509441-6FA1-43BA-BA9C-A89657EF01A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Api", "Api\Spanish.Football.League.Api\Spanish.Football.League.Api.csproj", "{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{00C3F60B-254F-40BC-9F0C-290E46C25310} = {00C3F60B-254F-40BC-9F0C-290E46C25310}
+		{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188} = {0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}
+		{6BD7AE52-18D0-4412-AD5F-D9F0FC8960DB} = {6BD7AE52-18D0-4412-AD5F-D9F0FC8960DB}
+		{ED8F6F46-A470-49F4-91AE-1720DEBA4B54} = {ED8F6F46-A470-49F4-91AE-1720DEBA4B54}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{4B6B0504-97E3-4F1E-B57B-D3945EEF6B61}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Services", "Application\Spanish.Football.League.Services\Spanish.Football.League.Services.csproj", "{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Services.Interfaces", "Application\Spanish.Football.League.Services.Interfaces\Spanish.Football.League.Services.Interfaces.csproj", "{5B864EE6-04A2-45B4-819F-91F120257201}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3794E325-1B42-4C57-B6D7-9F26D758A987}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Database", "Data\Spanish.Football.League.Database\Spanish.Football.League.Database.csproj", "{6BD7AE52-18D0-4412-AD5F-D9F0FC8960DB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{26BC9981-8CEA-471E-8C0D-0F5B78A2FE20} = {26BC9981-8CEA-471E-8C0D-0F5B78A2FE20}
+		{5C929F7E-4DCA-4AB9-A236-63FC12403780} = {5C929F7E-4DCA-4AB9-A236-63FC12403780}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Database.Configurations", "Data\Database.Configurations.Database.Configurations\Spanish.Football.League.Database.Configurations.csproj", "{26BC9981-8CEA-471E-8C0D-0F5B78A2FE20}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Repository", "Data\Spanish.Football.League.Repository\Spanish.Football.League.Repository.csproj", "{ED8F6F46-A470-49F4-91AE-1720DEBA4B54}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlScripts", "SqlScripts", "{FF7AD897-5109-476C-B8B7-D099F4415B4C}"
+	ProjectSection(SolutionItems) = preProject
+		V20241226_init_schema_tables.sql = V20241226_init_schema_tables.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{E9B3D5AA-A686-4AE8-BF5C-5906F2FFDC58}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Common", "Shared\Spanish.Football.League.Common\Spanish.Football.League.Common.csproj", "{00C3F60B-254F-40BC-9F0C-290E46C25310}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.DomainModels", "Shared\Spanish.Football.League.DomainModels\Spanish.Football.League.DomainModels.csproj", "{5C929F7E-4DCA-4AB9-A236-63FC12403780}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0C63669A-DF3D-4C4D-83D3-9FACFF6AF2BB}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B864EE6-04A2-45B4-819F-91F120257201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B864EE6-04A2-45B4-819F-91F120257201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B864EE6-04A2-45B4-819F-91F120257201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B864EE6-04A2-45B4-819F-91F120257201}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD7AE52-18D0-4412-AD5F-D9F0FC8960DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD7AE52-18D0-4412-AD5F-D9F0FC8960DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD7AE52-18D0-4412-AD5F-D9F0FC8960DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD7AE52-18D0-4412-AD5F-D9F0FC8960DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26BC9981-8CEA-471E-8C0D-0F5B78A2FE20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26BC9981-8CEA-471E-8C0D-0F5B78A2FE20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26BC9981-8CEA-471E-8C0D-0F5B78A2FE20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26BC9981-8CEA-471E-8C0D-0F5B78A2FE20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED8F6F46-A470-49F4-91AE-1720DEBA4B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED8F6F46-A470-49F4-91AE-1720DEBA4B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED8F6F46-A470-49F4-91AE-1720DEBA4B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED8F6F46-A470-49F4-91AE-1720DEBA4B54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00C3F60B-254F-40BC-9F0C-290E46C25310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00C3F60B-254F-40BC-9F0C-290E46C25310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00C3F60B-254F-40BC-9F0C-290E46C25310}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00C3F60B-254F-40BC-9F0C-290E46C25310}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C929F7E-4DCA-4AB9-A236-63FC12403780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C929F7E-4DCA-4AB9-A236-63FC12403780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C929F7E-4DCA-4AB9-A236-63FC12403780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C929F7E-4DCA-4AB9-A236-63FC12403780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C63669A-DF3D-4C4D-83D3-9FACFF6AF2BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C63669A-DF3D-4C4D-83D3-9FACFF6AF2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C63669A-DF3D-4C4D-83D3-9FACFF6AF2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C63669A-DF3D-4C4D-83D3-9FACFF6AF2BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A} = {27509441-6FA1-43BA-BA9C-A89657EF01A8}
+		{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188} = {4B6B0504-97E3-4F1E-B57B-D3945EEF6B61}
+		{5B864EE6-04A2-45B4-819F-91F120257201} = {4B6B0504-97E3-4F1E-B57B-D3945EEF6B61}
+		{6BD7AE52-18D0-4412-AD5F-D9F0FC8960DB} = {3794E325-1B42-4C57-B6D7-9F26D758A987}
+		{26BC9981-8CEA-471E-8C0D-0F5B78A2FE20} = {3794E325-1B42-4C57-B6D7-9F26D758A987}
+		{ED8F6F46-A470-49F4-91AE-1720DEBA4B54} = {3794E325-1B42-4C57-B6D7-9F26D758A987}
+		{FF7AD897-5109-476C-B8B7-D099F4415B4C} = {3794E325-1B42-4C57-B6D7-9F26D758A987}
+		{00C3F60B-254F-40BC-9F0C-290E46C25310} = {E9B3D5AA-A686-4AE8-BF5C-5906F2FFDC58}
+		{5C929F7E-4DCA-4AB9-A236-63FC12403780} = {E9B3D5AA-A686-4AE8-BF5C-5906F2FFDC58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AD202977-A38D-4A15-93AE-4746D6CB29A8}
