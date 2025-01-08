@@ -10,10 +10,10 @@
         {
             builder.HasKey(m => m.MatchId);
 
-            builder.Property(m => m.HomeTeamId)
+            builder.Property(m => m.HomeTeamName)
                 .IsRequired();
 
-            builder.Property(m => m.AwayTeamId)
+            builder.Property(m => m.AwayTeamName)
                 .IsRequired();
 
             builder.Property(m => m.HomeTeamOdd)
@@ -29,12 +29,14 @@
 
             builder.HasOne<Team>()
                 .WithMany()
-                .HasForeignKey(m => m.HomeTeamId)
+                .HasPrincipalKey(t => t.Name)
+                .HasForeignKey(m => m.HomeTeamName)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne<Team>()
                 .WithMany()
-                .HasForeignKey(m => m.AwayTeamId)
+                .HasPrincipalKey(t => t.Name)
+                .HasForeignKey(m => m.AwayTeamName)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

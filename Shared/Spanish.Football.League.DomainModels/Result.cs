@@ -11,14 +11,14 @@ public class Result : BaseModel<int>
     public int ResultId { get; set; }
 
     /// <summary>
-    /// Gets or sets HomeTeamId.
+    /// Gets or sets HomeTeamName.
     /// </summary>
-    public int HomeTeamId { get; set; }
+    public string HomeTeamName { get; set; }
 
     /// <summary>
-    /// Gets or sets AwayTeamId.
+    /// Gets or sets AwayTeamName.
     /// </summary>
-    public int AwayTeamId { get; set; }
+    public string AwayTeamName { get; set; }
 
     /// <summary>
     /// Gets or sets Score.

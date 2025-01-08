@@ -16,9 +16,9 @@ public class Winner : BaseModel<int>
     public int SeasonId { get; set; }
 
     /// <summary>
-    /// Gets or sets WinnerTeamId.
+    /// Gets or sets WinnerTeamName.
     /// </summary>
-    public int WinnerTeamId { get; set; }
+    public string WinnerTeamName { get; set; }
 
     /// <summary>
     /// Gets or sets ExpectedWinPercentage.

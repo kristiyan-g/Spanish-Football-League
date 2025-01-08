@@ -10,5 +10,7 @@
         public partial TeamResponseDto MapToTeamResponseDto(Team team);
 
         public partial IEnumerable<TeamResponseDto> MapToResponseDtoList(IEnumerable<Team> teams);
+
+        public partial IEnumerable<TeamDto> MapToTeamDtoList(IEnumerable<Team> teams);
     }
 }

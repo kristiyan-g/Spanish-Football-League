@@ -13,7 +13,7 @@
             builder.Property(w => w.SeasonId)
                 .IsRequired();
 
-            builder.Property(w => w.WinnerTeamId)
+            builder.Property(w => w.WinnerTeamName)
                 .IsRequired();
 
             builder.Property(w => w.ExpectedWinPercentage)
@@ -24,7 +24,8 @@
 
             builder.HasOne<Team>()
                 .WithMany()
-                .HasForeignKey(w => w.WinnerTeamId)
+                .HasPrincipalKey(t => t.Name)
+                .HasForeignKey(w => w.WinnerTeamName)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

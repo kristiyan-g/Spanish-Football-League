@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\Spanish.Football.League.Repository\Spanish.Football.League.Repository.csproj" />
     <ProjectReference Include="..\..\Shared\Spanish.Football.League.Common\Spanish.Football.League.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Spanish.Football.League.DomainModels\Spanish.Football.League.DomainModels.csproj" />
     <ProjectReference Include="..\Spanish.Football.League.Services.Interfaces\Spanish.Football.League.Services.Interfaces.csproj" />

@@ -3,6 +3,7 @@
     using System.Reflection;
     using Microsoft.OpenApi.Models;
     using Spanish.Football.League.Repository;
+    using Spanish.Football.League.Services;
     using Spanish.Football.League.Services.Interfaces;
     using Spanish.Football.League.Services.Mappers;
 
@@ -28,6 +29,7 @@
             // Scoped
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
             services.AddScoped<MapperlyProfile>();
+            services.AddScoped<GameEngineService>();
 
             return services;
         }
