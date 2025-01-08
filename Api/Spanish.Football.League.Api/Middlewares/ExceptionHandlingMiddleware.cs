@@ -22,6 +22,11 @@ namespace Spanish.Football.League.Api.Middlewares
             {
                 await next(context);
             }
+            catch (KeyNotFoundException ex)
+            {
+                logger.LogError(ex, ex.Message);
+                await SetResponseStatusCode(context, StatusCodes.Status404NotFound, ex.Message);
+            }
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);

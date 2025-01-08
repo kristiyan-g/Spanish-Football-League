@@ -4,6 +4,7 @@
     using Microsoft.OpenApi.Models;
     using Spanish.Football.League.Repository;
     using Spanish.Football.League.Services.Interfaces;
+    using Spanish.Football.League.Services.Mappers;
 
     /// <summary>
     /// A static class that contains extension methods for configuring and registering services
@@ -26,6 +27,7 @@
 
             // Scoped
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+            services.AddScoped<MapperlyProfile>();
 
             return services;
         }

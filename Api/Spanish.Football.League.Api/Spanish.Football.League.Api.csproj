@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Spanish.Football.League.Services.Interfaces\Spanish.Football.League.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Application\Spanish.Football.League.Services\Spanish.Football.League.Services.csproj" />
     <ProjectReference Include="..\..\Data\Spanish.Football.League.Database\Spanish.Football.League.Database.csproj" />
     <ProjectReference Include="..\..\Data\Spanish.Football.League.Repository\Spanish.Football.League.Repository.csproj" />
   </ItemGroup>

@@ -34,6 +34,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlScripts", "SqlScripts", "{FF7AD897-5109-476C-B8B7-D099F4415B4C}"
 	ProjectSection(SolutionItems) = preProject
 		V20241226_init_schema_tables.sql = V20241226_init_schema_tables.sql
+		V20241226_team_records.sql = V20241226_team_records.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{E9B3D5AA-A686-4AE8-BF5C-5906F2FFDC58}"
