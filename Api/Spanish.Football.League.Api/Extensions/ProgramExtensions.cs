@@ -1,7 +1,10 @@
 ﻿namespace Spanish.Football.League.Api.Extensions
 {
     using System.Reflection;
+    using FluentValidation;
     using Microsoft.OpenApi.Models;
+    using Spanish.Football.League.Common.Models;
+    using Spanish.Football.League.Common.Validations;
     using Spanish.Football.League.Repository;
     using Spanish.Football.League.Services;
     using Spanish.Football.League.Services.Interfaces;
@@ -29,7 +32,38 @@
             // Scoped
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
             services.AddScoped<MapperlyProfile>();
-            services.AddScoped<GameEngineService>();
+            services.AddScoped<IFootballLeagueService, FootballLeagueService>();
+            services.AddScoped<IGameEngineService, GameEngineService>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Registers IValidator fluent validations to the specified IServiceCollection, enabling dependency injection
+        /// for essential services used throughout the application.
+        /// </summary>
+        /// <param name="services">The IServiceCollection instance where services will be registered.</param>
+        /// <returns>An IServiceCollection instance.</returns>
+        public static IServiceCollection RegisterValidations(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<CreateSeasonRequestDto>, CreateSeasonRequestDtoValidator>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Configures Redis Cache for the application.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configuration">The application configuration.</param>
+        /// <returns>The updated service collection.</returns>
+        public static IServiceCollection RegisterRedisCache(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration.GetConnectionString("Redis");
+                options.InstanceName = "SpanishFootballLeague_";
+            });
 
             return services;
         }

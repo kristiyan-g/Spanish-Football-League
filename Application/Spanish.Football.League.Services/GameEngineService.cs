@@ -1,95 +1,51 @@
 ﻿namespace Spanish.Football.League.Services
 {
-    using Spanish.Football.League.Common.Models;
-    using Spanish.Football.League.DomainModels;
-    using Spanish.Football.League.Repository;
-    using Spanish.Football.League.Services.Mappers;
+    using System;
+    using Spanish.Football.League.Services.Interfaces;
 
-    public class GameEngineService(MapperlyProfile mapperly,
-        IGenericRepository<Team, int> repository)
+    /// <inheritdoc />
+    public class GameEngineService : IGameEngineService
     {
-        private readonly Random _random = new Random();
+        private readonly Random random = new ();
 
-        public IEnumerable<TeamDto> GenerateTeams(GameSetupDto gameSetup)
+        /// <inheritdoc />
+        public (int HomeScore, int AwayScore) GenerateMatchScore(decimal homeTeamWeight, decimal awayTeamWeight)
         {
-            var teams = repository.GetAll().Take(gameSetup.NumberOfTeams);
+            // Home team have an advantage.
+            decimal adjustedHomeWeight = homeTeamWeight + 0.05m;
 
-            var teamsDto = mapperly.MapToTeamDtoList(teams).ToList();
+            int homeScore = CalculateGoals(adjustedHomeWeight);
+            int awayScore = CalculateGoals(awayTeamWeight);
 
-            for (int i = 0; i < gameSetup.NumberOfWeakTeams; i++)
-            {
-                teamsDto[i].Weight = GenerateRandomWeight(gameSetup.WeakTeamsMin, gameSetup.WeakTeamsMax);
-            }
-
-            for (int i = gameSetup.NumberOfWeakTeams; i < gameSetup.NumberOfWeakTeams + gameSetup.NumberOfStrongTeams; i++)
-            {
-                teamsDto[i].Weight = GenerateRandomWeight(gameSetup.StrongTeamsMin, gameSetup.StrongTeamsMax);
-            }
-
-            decimal otherTeamsMin = gameSetup.StrongTeamsMin;
-            decimal otherTeamsMax = gameSetup.WeakTeamsMax;
-            for (int i = gameSetup.NumberOfWeakTeams + gameSetup.NumberOfStrongTeams; i < teamsDto.Count; i++)
-            {
-                teamsDto[i].Weight = GenerateRandomWeight(otherTeamsMin, otherTeamsMax);
-            }
-
-            return teamsDto;
+            return (homeScore, awayScore);
         }
 
-        public IEnumerable<Match> GenerateMatches(List<TeamDto> teamDto)
+        /// <summary>
+        /// Calculates the number of goals scored using the Poisson distribution.
+        /// </summary>
+        /// <param name="teamWeight">Mean of the Poisson distribution, influenced by team weight.</param>
+        /// <returns>Number of goals scored.</returns>
+        private int CalculateGoals(decimal teamWeight)
         {
+            // Poisson distribution's expected mean (lambda)
+            decimal expectedGoals = 2.5m * teamWeight;
 
-            //var teams = context.Teams.ToList();
-            // teamDto = teamDto.ToList();
-            var random = new Random();
-            var matches = new List<Match>();
+            // Calculate the threshold for stopping the random process
+            decimal threshold = (decimal)Math.Exp((double)-expectedGoals);
 
-            // Generate matches
-            for (int i = 0; i < teamDto.Count; i += 2)
+            int goals = 0;
+            decimal cumulativeProbability = 1.0m;
+
+            // Generate the random probability product until it drops below the threshold
+            do
             {
-                var team1 = teamDto[i];
-                var team2 = teamDto[i + 1];
-
-                // Home and away matches
-                matches.Add(new Match
-                {
-                    HomeTeamName = team1.Name,
-                    AwayTeamName = team2.Name,
-                    HomeTeamOdd = Math.Round((decimal)(random.NextDouble() * 3 + 1), 2), // Random odds
-                    AwayTeamOdd = Math.Round((decimal)(random.NextDouble() * 3 + 1), 2),
-                    CreatedDate = DateTime.UtcNow
-                });
-
-                matches.Add(new Match
-                {
-                    HomeTeamName = team2.Name,
-                    AwayTeamName = team1.Name,
-                    HomeTeamOdd = Math.Round((decimal)(random.NextDouble() * 3 + 1), 2), // Random odds
-                    AwayTeamOdd = Math.Round((decimal)(random.NextDouble() * 3 + 1), 2),
-                    CreatedDate = DateTime.UtcNow
-                });
+                goals++;
+                cumulativeProbability *= (decimal)random.NextDouble();
             }
+            while (cumulativeProbability > threshold);
 
-            // Shuffle matches randomly
-           // matches = matches.OrderBy(x => random.Next()).ToList();
-
-            return matches;
-        }
-
-        private int GenerateScore(int min, int max, decimal strength, bool isHome)
-        {
-            // Apply a bias based on the team's strength
-            double strengthFactor = (double)strength + (isHome ? 0.1 : 0); // Home team gets a slight boost
-            int weightedMax = (int)(max * strengthFactor);
-
-            // Generate score within the weighted range
-            return _random.Next(min, Math.Max(weightedMax, min) + 1);
-        }
-
-        private decimal GenerateRandomWeight(decimal min, decimal max)
-        {
-            var randomValue = (decimal)(_random.NextDouble() * (double)(max - min) + (double)min);
-            return Math.Round(randomValue, 2);
+            // Subtract 1 because the loop increments goals one extra time
+            return goals - 1;
         }
     }
 }

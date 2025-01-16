@@ -13,4 +13,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Spanish.Football.League.DomainModels\Spanish.Football.League.DomainModels.csproj" />
+  </ItemGroup>
+
 </Project>

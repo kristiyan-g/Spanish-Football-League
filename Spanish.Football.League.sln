@@ -18,6 +18,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Services", "Application\Spanish.Football.League.Services\Spanish.Football.League.Services.csproj", "{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Services.Interfaces", "Application\Spanish.Football.League.Services.Interfaces\Spanish.Football.League.Services.Interfaces.csproj", "{5B864EE6-04A2-45B4-819F-91F120257201}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5C929F7E-4DCA-4AB9-A236-63FC12403780} = {5C929F7E-4DCA-4AB9-A236-63FC12403780}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3794E325-1B42-4C57-B6D7-9F26D758A987}"
 EndProject
@@ -31,12 +34,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Repository", "Data\Spanish.Football.League.Repository\Spanish.Football.League.Repository.csproj", "{ED8F6F46-A470-49F4-91AE-1720DEBA4B54}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlScripts", "SqlScripts", "{FF7AD897-5109-476C-B8B7-D099F4415B4C}"
-	ProjectSection(SolutionItems) = preProject
-		V20241226_init_schema_tables.sql = V20241226_init_schema_tables.sql
-		V20241226_team_records.sql = V20241226_team_records.sql
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{E9B3D5AA-A686-4AE8-BF5C-5906F2FFDC58}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.Common", "Shared\Spanish.Football.League.Common\Spanish.Football.League.Common.csproj", "{00C3F60B-254F-40BC-9F0C-290E46C25310}"
@@ -44,6 +41,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spanish.Football.League.DomainModels", "Shared\Spanish.Football.League.DomainModels\Spanish.Football.League.DomainModels.csproj", "{5C929F7E-4DCA-4AB9-A236-63FC12403780}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0C63669A-DF3D-4C4D-83D3-9FACFF6AF2BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0871B1D7-629B-4592-A976-5B3A5E579735}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,7 +100,6 @@ Global
 		{6BD7AE52-18D0-4412-AD5F-D9F0FC8960DB} = {3794E325-1B42-4C57-B6D7-9F26D758A987}
 		{26BC9981-8CEA-471E-8C0D-0F5B78A2FE20} = {3794E325-1B42-4C57-B6D7-9F26D758A987}
 		{ED8F6F46-A470-49F4-91AE-1720DEBA4B54} = {3794E325-1B42-4C57-B6D7-9F26D758A987}
-		{FF7AD897-5109-476C-B8B7-D099F4415B4C} = {3794E325-1B42-4C57-B6D7-9F26D758A987}
 		{00C3F60B-254F-40BC-9F0C-290E46C25310} = {E9B3D5AA-A686-4AE8-BF5C-5906F2FFDC58}
 		{5C929F7E-4DCA-4AB9-A236-63FC12403780} = {E9B3D5AA-A686-4AE8-BF5C-5906F2FFDC58}
 	EndGlobalSection

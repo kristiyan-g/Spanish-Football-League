@@ -6,22 +6,37 @@
 public class Result : BaseModel<int>
 {
     /// <summary>
-    /// Gets or sets Result Id.
+    /// Gets or sets the season ID.
     /// </summary>
-    public int ResultId { get; set; }
+    public int SeasonId { get; set; }
 
     /// <summary>
-    /// Gets or sets HomeTeamName.
+    /// Gets or sets the season half.
     /// </summary>
-    public string HomeTeamName { get; set; }
+    public int SeasonHalf { get; set; }
 
     /// <summary>
-    /// Gets or sets AwayTeamName.
+    /// Gets or sets the home team name.
     /// </summary>
-    public string AwayTeamName { get; set; }
+    public string HomeTeamName { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets Score.
+    /// Gets or sets the away team name.
     /// </summary>
-    public string? Score { get; set; }
+    public string AwayTeamName { get; set; } = null!;
+
+    /// <summary>
+    /// Gets or sets the home team score.
+    /// </summary>
+    public int HomeTeamScore { get; set; }
+
+    /// <summary>
+    /// Gets or sets the away team score.
+    /// </summary>
+    public int AwayTeamScore { get; set; }
+
+    /// <summary>
+    /// Gets or sets is expected.
+    /// </summary>
+    public bool? IsExpected { get; set; }
 }

@@ -4,8 +4,15 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Spanish.Football.League.DomainModels;
 
+    /// <summary>
+    /// Contains fluent validations and configurations for Team entity.
+    /// </summary>
     public class TeamConfiguration : IEntityTypeConfiguration<Team>
     {
+        /// <summary>
+        /// This method is where the configuration for the Team entity is defined.
+        /// </summary>
+        /// <param name="builder">The EntityTypeBuilder Team builder.</param>
         public void Configure(EntityTypeBuilder<Team> builder)
         {
             builder.HasKey(static t => t.TeamId);

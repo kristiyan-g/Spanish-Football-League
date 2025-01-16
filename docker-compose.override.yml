@@ -4,7 +4,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
-      - ConnectionStrings__DefaultConnection=Host=host.docker.internal;Port=5433;Database=postgres;User Id=user;Password=password;Include Error Detail=true; 
+      - ConnectionStrings__DefaultConnection=Host=host.docker.internal;Port=5433;Database=postgres;User Id=user;Password=password;Include Error Detail=true;
+      - Redis__Connection=redis:6379
     ports:
       - "8080"
       - "8081"
@@ -27,6 +28,16 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5433:5432"
+ 
+  redis:
+    image: redis:latest
+    hostname: redis
+    container_name: redis
+    networks:
+      - app-network
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
 
 volumes:
   pgdata:

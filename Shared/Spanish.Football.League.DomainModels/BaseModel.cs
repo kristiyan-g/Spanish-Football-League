@@ -7,6 +7,11 @@
     public abstract class BaseModel<TKey>
     {
         /// <summary>
+        /// Gets or sets Id.
+        /// </summary>
+        public TKey Id { get; set; } = default!;
+
+        /// <summary>
         /// Gets or sets CreatedDate.
         /// </summary>
         public DateTime CreatedDate { get; set; }

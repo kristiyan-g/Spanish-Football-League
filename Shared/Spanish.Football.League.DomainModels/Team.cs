@@ -6,22 +6,22 @@
 public class Team
 {
     /// <summary>
-    /// Gets or sets TeamId.
+    /// Gets or sets teamId.
     /// </summary>
     public int TeamId { get; set; }
 
     /// <summary>
-    /// Gets or sets Name.
+    /// Gets or sets name.
     /// </summary>
     public string Name { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets Weight.
+    /// Gets or sets weight.
     /// </summary>
-    public double Weight { get; set; }
+    public decimal Weight { get; set; }
 
     /// <summary>
-    /// Gets or sets Color.
+    /// Gets or sets color.
     /// </summary>
     public string Color { get; set; } = null!;
 }
