@@ -1,7 +1,5 @@
 ﻿namespace Spanish.Football.League.IntegrationTests.Utils
 {
-    using System.Runtime.CompilerServices;
-
     public class TestConstants
     {
         // Endpoint
