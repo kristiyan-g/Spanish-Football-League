@@ -1,17 +1,19 @@
-﻿using Spanish.Football.League.Common.Models;
-using System.Net;
-using System.Net.Http.Json;
-using Spanish.Football.League.IntegrationTests.Utils;
-using Spanish.Football.League.Common.Enums;
-using Spanish.Football.League.Common;
-
-namespace Spanish.Football.League.IntegrationTests
+﻿namespace Spanish.Football.League.IntegrationTests
 {
-    public class SeasonControllerTests(WebAppFactory factory) : BaseTest(factory)
-    {
-        private readonly HttpClient _client = factory.CreateDefaultClient();
+    using System.Net;
+    using System.Net.Http.Json;
+    using Newtonsoft.Json;
+    using Spanish.Football.League.Common;
+    using Spanish.Football.League.Common.Enums;
+    using Spanish.Football.League.Common.Models;
+    using Spanish.Football.League.IntegrationTests.Utils;
 
+    public class SeasonControllerTests(WebAppFactory factory)
+        : BaseTest(factory)
+    {
         private static int seasonYear = 2000;
+
+        private readonly HttpClient client = factory.CreateDefaultClient();
 
         [Fact]
         public async Task CreateSeason_ReturnBadRequest_WhenSeasonYearIsInvalid()
@@ -24,7 +26,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -42,7 +44,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.DefaultValue,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -60,7 +62,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -78,7 +80,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -96,7 +98,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.NegativeValue,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -114,7 +116,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.DefaultValue,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -132,7 +134,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.ExceedingValue,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -150,7 +152,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.ExceedingValue,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, invalidRequest);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -168,7 +170,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             var seasonResponse = await response.Content.ReadAsStringAsync();
             var seasonId = int.Parse(seasonResponse);
@@ -198,13 +200,11 @@ namespace Spanish.Football.League.IntegrationTests
 
                 teamMatchCounts[match.HomeTeamName] = (
                     teamMatchCounts[match.HomeTeamName].Home + 1,
-                    teamMatchCounts[match.HomeTeamName].Away
-                );
+                    teamMatchCounts[match.HomeTeamName].Away);
 
                 teamMatchCounts[match.AwayTeamName] = (
                     teamMatchCounts[match.AwayTeamName].Home,
-                    teamMatchCounts[match.AwayTeamName].Away + 1
-                );
+                    teamMatchCounts[match.AwayTeamName].Away + 1);
             }
 
             foreach (var team in teamMatchCounts)
@@ -226,7 +226,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             var seasonResponse = await response.Content.ReadAsStringAsync();
             var seasonId = int.Parse(seasonResponse);
@@ -267,7 +267,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             var seasonResponse = await response.Content.ReadAsStringAsync();
             var seasonId = int.Parse(seasonResponse);
@@ -298,7 +298,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             var seasonResponse = await response.Content.ReadAsStringAsync();
             var seasonId = int.Parse(seasonResponse);
@@ -343,7 +343,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             var seasonResponse = await response.Content.ReadAsStringAsync();
             var seasonId = int.Parse(seasonResponse);
@@ -364,7 +364,7 @@ namespace Spanish.Football.League.IntegrationTests
                 NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
             };
 
-            var response = await _client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
+            var response = await client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             var seasonResponse = await response.Content.ReadAsStringAsync();
             var seasonId = int.Parse(seasonResponse);
@@ -375,10 +375,10 @@ namespace Spanish.Football.League.IntegrationTests
         }
 
         [Fact]
-        public async Task GetSeasonResultsAsync_ReturnsBadRequestWithIdEqualToZero()
+        public async Task GetSeasonResultsAsync_ReturnsBadRequest_WithIdEqualToZero()
         {
             var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/results/{TestConstants.DefaultValue}";
-            var response = await _client.GetAsync(seasonResultResponseUrl);
+            var response = await client.GetAsync(seasonResultResponseUrl);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
@@ -388,10 +388,10 @@ namespace Spanish.Football.League.IntegrationTests
         }
 
         [Fact]
-        public async Task GetSeasonResultsAsync_ReturnsBadRequestWithInvalidId()
+        public async Task GetSeasonResultsAsync_ReturnsBadRequest_WithInvalidId()
         {
-            var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/{TestConstants.NegativeValue}/leaderboard";
-            var response = await _client.GetAsync(seasonResultResponseUrl);
+            var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/results/{TestConstants.NegativeValue}";
+            var response = await client.GetAsync(seasonResultResponseUrl);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
@@ -401,10 +401,53 @@ namespace Spanish.Football.League.IntegrationTests
         }
 
         [Fact]
-        public async Task GetSeasonStatsAsync_ReturnsBadRequestWithIdEqualToZero()
+        public async Task GetSeasonResultsAsync_ReturnsSuccessStatusCode_And_ExpectedData_WhenSuccessful()
+        {
+            var validRequest = new CreateSeasonRequestDto()
+            {
+                SeasonYear = seasonYear++,
+                NumberOfTeams = TestConstants.ValidNumberOfTeams,
+                NumberOfStrongTeams = TestConstants.ValidNumberOfStrongTeams,
+                NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
+            };
+
+            var postResponse = await client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
+            Assert.Equal(HttpStatusCode.Created, postResponse.StatusCode);
+            var seasonResponse = await postResponse.Content.ReadAsStringAsync();
+            var seasonId = int.Parse(seasonResponse);
+
+            var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/results/{seasonId}";
+            var response = await client.GetAsync(seasonResultResponseUrl);
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var responseAsString = await response.Content.ReadAsStringAsync();
+            var resultDto = JsonConvert.DeserializeObject<SeasonResultsResponseDto>(responseAsString);
+            Assert.NotNull(resultDto);
+
+            Assert.Equal(validRequest.SeasonYear, resultDto.SeasonYear);
+            Assert.Equal(TestConstants.TotalMatches, resultDto.Results.Count());
+            Assert.NotNull(resultDto.Winner);
+        }
+
+        [Fact]
+        public async Task GetSeasonResultsAsync_ReturnsNotFound_WhenSeasonIdDontExist()
+        {
+            var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/results/{int.MaxValue}";
+            var response = await client.GetAsync(seasonResultResponseUrl);
+
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+
+            var responseAsString = await response.Content.ReadAsStringAsync();
+
+            Assert.Contains($"No results found for season ID {int.MaxValue}!", responseAsString);
+        }
+
+        [Fact]
+        public async Task GetSeasonStatsAsync_ReturnsBadRequest_WithIdEqualToZero()
         {
             var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/{TestConstants.DefaultValue}/leaderboard";
-            var response = await _client.GetAsync(seasonResultResponseUrl);
+            var response = await client.GetAsync(seasonResultResponseUrl);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
@@ -414,10 +457,10 @@ namespace Spanish.Football.League.IntegrationTests
         }
 
         [Fact]
-        public async Task GetSeasonStatsAsync_ReturnsBadRequestWithInvalidId()
+        public async Task GetSeasonStatsAsync_ReturnsBadRequest_WithInvalidId()
         {
             var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/{TestConstants.NegativeValue}/leaderboard";
-            var response = await _client.GetAsync(seasonResultResponseUrl);
+            var response = await client.GetAsync(seasonResultResponseUrl);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
@@ -427,10 +470,51 @@ namespace Spanish.Football.League.IntegrationTests
         }
 
         [Fact]
-        public async Task GetTeamDetailsAsync_ReturnsBadRequestWithIdEqualToZero()
+        public async Task GetSeasonStatsAsync_ReturnsNotFound_WhenSeasonIdDontExist()
+        {
+            var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/{int.MaxValue}/leaderboard";
+            var response = await client.GetAsync(seasonResultResponseUrl);
+
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+
+            var responseAsString = await response.Content.ReadAsStringAsync();
+
+            Assert.Contains($"No leaderboard found for season ID {int.MaxValue}!", responseAsString);
+        }
+
+        [Fact]
+        public async Task GetSeasonStatsAsync_ReturnsSuccessStatusCode_And_ExpectedData_WhenSuccessful()
+        {
+            var validRequest = new CreateSeasonRequestDto()
+            {
+                SeasonYear = seasonYear++,
+                NumberOfTeams = TestConstants.ValidNumberOfTeams,
+                NumberOfStrongTeams = TestConstants.ValidNumberOfStrongTeams,
+                NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
+            };
+
+            var postResponse = await client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
+            Assert.Equal(HttpStatusCode.Created, postResponse.StatusCode);
+            var seasonResponse = await postResponse.Content.ReadAsStringAsync();
+            var seasonId = int.Parse(seasonResponse);
+
+            var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/{seasonId}/leaderboard";
+            var response = await client.GetAsync(seasonResultResponseUrl);
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var responseAsString = await response.Content.ReadAsStringAsync();
+            var resultDto = JsonConvert.DeserializeObject<IEnumerable<SeasonStatsResponseDto>>(responseAsString);
+            Assert.NotNull(resultDto);
+
+            Assert.Equal(validRequest.NumberOfTeams, resultDto.Count());
+        }
+
+        [Fact]
+        public async Task GetTeamDetailsAsync_ReturnsBadRequest_WithIdEqualToZero()
         {
             var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/{TestConstants.DefaultValue}/teamdetails";
-            var response = await _client.GetAsync(seasonResultResponseUrl);
+            var response = await client.GetAsync(seasonResultResponseUrl);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
@@ -440,16 +524,57 @@ namespace Spanish.Football.League.IntegrationTests
         }
 
         [Fact]
-        public async Task GetTeamDetailsAsync_ReturnsBadRequestWithInvalidId()
+        public async Task GetTeamDetailsAsync_ReturnsBadRequest_WithInvalidId()
         {
             var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/{TestConstants.NegativeValue}/teamdetails";
-            var response = await _client.GetAsync(seasonResultResponseUrl);
+            var response = await client.GetAsync(seasonResultResponseUrl);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
 
             var responseAsString = await response.Content.ReadAsStringAsync();
 
             Assert.Contains(TestConstants.InvalidSeasonIdMessage, responseAsString);
+        }
+
+        [Fact]
+        public async Task GetTemaDetailsAsync_ReturnsNotFound_WhenSeasonIdDontExist()
+        {
+            var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/{int.MaxValue}/teamdetails";
+            var response = await client.GetAsync(seasonResultResponseUrl);
+
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+
+            var responseAsString = await response.Content.ReadAsStringAsync();
+
+            Assert.Contains($"No team details found for season ID {int.MaxValue}!", responseAsString);
+        }
+
+        [Fact]
+        public async Task GetTeamDetailsAsync_ReturnsSuccessStatusCode_And_ExpectedData_WhenSuccessful()
+        {
+            var validRequest = new CreateSeasonRequestDto()
+            {
+                SeasonYear = seasonYear++,
+                NumberOfTeams = TestConstants.ValidNumberOfTeams,
+                NumberOfStrongTeams = TestConstants.ValidNumberOfStrongTeams,
+                NumberOfWeakTeams = TestConstants.ValidNumbersOfWeakTeams,
+            };
+
+            var postResponse = await client.PostAsJsonAsync(TestConstants.ApiUrl, validRequest);
+            Assert.Equal(HttpStatusCode.Created, postResponse.StatusCode);
+            var seasonResponse = await postResponse.Content.ReadAsStringAsync();
+            var seasonId = int.Parse(seasonResponse);
+
+            var seasonResultResponseUrl = $"{TestConstants.ApiUrl}/{seasonId}/teamdetails";
+            var response = await client.GetAsync(seasonResultResponseUrl);
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var responseAsString = await response.Content.ReadAsStringAsync();
+            var resultDto = JsonConvert.DeserializeObject<IEnumerable<TeamDetailsResponseDto>>(responseAsString);
+            Assert.NotNull(resultDto);
+
+            Assert.Equal(validRequest.NumberOfTeams, resultDto.Count());
         }
     }
 }

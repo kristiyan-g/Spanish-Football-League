@@ -1,21 +1,27 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Spanish.Football.League.Database;
-using Testcontainers.PostgreSql;
-using Testcontainers.Redis;
-
-namespace Spanish.Football.League.IntegrationTests
+﻿namespace Spanish.Football.League.IntegrationTests
 {
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc.Testing;
+    using Microsoft.AspNetCore.TestHost;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+    using Spanish.Football.League.Database;
+    using Testcontainers.PostgreSql;
+    using Testcontainers.Redis;
+
     public class WebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
     {
-        private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
+        private readonly PostgreSqlContainer dbContainer = new PostgreSqlBuilder()
             .WithImage("postgres:latest")
             .WithDatabase("postgres")
             .WithUsername("user")
             .WithPassword("password")
+            .Build();
+
+        private readonly RedisContainer redisContainer = new RedisBuilder()
+            .WithImage("redis:latest")
+            .WithCleanUp(true)
+            .WithPortBinding(0)
             .Build();
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -33,8 +39,13 @@ namespace Spanish.Football.League.IntegrationTests
                 services.AddDbContext<SpanishFootballLeagueDbContext>(options =>
                 {
                     options
-                        .UseNpgsql(_dbContainer.GetConnectionString())
+                        .UseNpgsql(dbContainer.GetConnectionString())
                         .UseSnakeCaseNamingConvention();
+                });
+
+                services.AddStackExchangeRedisCache(options =>
+                {
+                    options.Configuration = redisContainer.GetConnectionString();
                 });
             });
 
@@ -43,12 +54,14 @@ namespace Spanish.Football.League.IntegrationTests
 
         public async Task InitializeAsync()
         {
-            await _dbContainer.StartAsync();
+            await dbContainer.StartAsync();
+            await redisContainer.StartAsync();
         }
 
         public async new Task DisposeAsync()
         {
-            await _dbContainer.StopAsync();
+            await dbContainer.StopAsync();
+            await redisContainer.StopAsync();
         }
     }
 }

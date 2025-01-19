@@ -1,7 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Spanish.Football.League.IntegrationTests.Utils
+﻿namespace Spanish.Football.League.IntegrationTests.Utils
 {
+    using System.Runtime.CompilerServices;
+
     public class TestConstants
     {
         // Endpoint
@@ -30,10 +30,15 @@ namespace Spanish.Football.League.IntegrationTests.Utils
         public const int ValidNumbersOfWeakTeams = 9;
 
         public static int RemainingTeams => ValidNumberOfTeams - (ValidNumberOfStrongTeams + ValidNumbersOfWeakTeams);
-        public static int TotalMatches => ValidNumberOfTeams * (ValidNumberOfTeams - 1); //90
-        public static int MatchesPerHalf => TotalMatches / 2; //45
-        public static int MatchesPerTeam => (TotalMatches / ValidNumberOfTeams) * 2; //18
-        public static int HomeMatchesPerTeam => MatchesPerTeam / 2; 
+
+        public static int TotalMatches => ValidNumberOfTeams * (ValidNumberOfTeams - 1);
+
+        public static int MatchesPerHalf => TotalMatches / 2;
+
+        public static int MatchesPerTeam => (TotalMatches / ValidNumberOfTeams) * 2;
+
+        public static int HomeMatchesPerTeam => MatchesPerTeam / 2;
+
         public static int AwayMatchesPerTeam => MatchesPerTeam / 2;
     }
 }

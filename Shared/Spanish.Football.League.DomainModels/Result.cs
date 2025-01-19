@@ -1,6 +1,6 @@
-﻿using Spanish.Football.League.Common.Enums;
+﻿namespace Spanish.Football.League.DomainModels;
 
-namespace Spanish.Football.League.DomainModels;
+using Spanish.Football.League.Common.Enums;
 
 /// <summary>
 /// The Result entity.

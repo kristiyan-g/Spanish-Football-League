@@ -1,16 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Net.Http;
-
-namespace Spanish.Football.League.IntegrationTests
+﻿namespace Spanish.Football.League.IntegrationTests
 {
-    public class HealthTests(WebAppFactory factory) : BaseTest(factory)
+    using Microsoft.EntityFrameworkCore;
+
+    public class HealthTests(WebAppFactory factory)
+        : BaseTest(factory)
     {
-        private readonly HttpClient _httpClient = factory.CreateDefaultClient();
+        private readonly HttpClient httpClient = factory.CreateDefaultClient();
 
         [Fact]
         public async Task HealthCheck_Returns_OK()
         {
-            var response = await _httpClient.GetAsync("api/healthcheck");
+            var response = await httpClient.GetAsync("api/healthcheck");
 
             response.EnsureSuccessStatusCode();
         }
