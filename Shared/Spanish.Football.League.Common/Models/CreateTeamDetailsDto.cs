@@ -1,21 +1,24 @@
-﻿namespace Spanish.Football.League.DomainModels
+﻿namespace Spanish.Football.League.Common.Models
 {
     /// <summary>
-    /// The TeamDetails entity.
+    /// Dto for creating Team details.
     /// </summary>
-    public class TeamDetails : BaseModel<int>
+    public class CreateTeamDetailsDto
     {
         /// <summary>
-        /// Gets or sets the seaaon ID.
+        /// Gets or sets the season ID.
         /// </summary>
         public int SeasonId { get; set; }
 
         /// <summary>
         /// Gets or sets the team name.
         /// </summary>
-        public string TeamName { get; set; }
+        public string? TeamName { get; set; }
 
-        public string TeamColor { get; set; }
+        /// <summary>
+        /// Gets or sets the team color.
+        /// </summary>
+        public string? TeamColor { get; set; }
 
         /// <summary>
         /// Gets or sets the weight.
@@ -23,7 +26,7 @@
         public decimal Weight { get; set; }
 
         /// <summary>
-        /// Gets or sets the expexted perentage to win.
+        /// Gets or sets the expexted percents to win.
         /// </summary>
         public decimal ExpectedWinPercentage { get; set; }
     }

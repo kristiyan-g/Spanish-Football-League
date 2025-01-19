@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-
-#nullable disable
+﻿#nullable disable
 
 namespace Spanish.Football.League.Database.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+    using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+
     /// <inheritdoc />
     public partial class InitialCreate : Migration
     {
@@ -97,7 +97,9 @@ namespace Spanish.Football.League.Database.Migrations
                     season_id = table.Column<int>(type: "integer", nullable: false),
                     season_half = table.Column<int>(type: "integer", nullable: false),
                     home_team_name = table.Column<string>(type: "character varying(100)", nullable: false),
+                    home_team_odd = table.Column<decimal>(type: "numeric", nullable: false),
                     away_team_name = table.Column<string>(type: "character varying(100)", nullable: false),
+                    away_team_odd = table.Column<decimal>(type: "numeric", nullable: false),
                     home_team_score = table.Column<int>(type: "integer", nullable: false),
                     away_team_score = table.Column<int>(type: "integer", nullable: false),
                     is_expected = table.Column<bool>(type: "boolean", nullable: true),
@@ -175,6 +177,7 @@ namespace Spanish.Football.League.Database.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     season_id = table.Column<int>(type: "integer", nullable: false),
                     team_name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    team_color = table.Column<string>(type: "text", nullable: false),
                     weight = table.Column<decimal>(type: "numeric", nullable: false),
                     expected_win_percentage = table.Column<decimal>(type: "numeric", nullable: false),
                     created_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)

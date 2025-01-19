@@ -1,4 +1,6 @@
-﻿namespace Spanish.Football.League.DomainModels;
+﻿using Spanish.Football.League.Common.Enums;
+
+namespace Spanish.Football.League.DomainModels;
 
 /// <summary>
 /// The Result entity.
@@ -13,7 +15,7 @@ public class Result : BaseModel<int>
     /// <summary>
     /// Gets or sets the season half.
     /// </summary>
-    public int SeasonHalf { get; set; }
+    public SeasonHalvesEnum SeasonHalf { get; set; }
 
     /// <summary>
     /// Gets or sets the home team name.
@@ -21,9 +23,19 @@ public class Result : BaseModel<int>
     public string HomeTeamName { get; set; } = null!;
 
     /// <summary>
+    /// Gets or sets the home team odd.
+    /// </summary>
+    public decimal HomeTeamOdd { get; set; }
+
+    /// <summary>
     /// Gets or sets the away team name.
     /// </summary>
     public string AwayTeamName { get; set; } = null!;
+
+    /// <summary>
+    /// Gets or sets the away team odd.
+    /// </summary>
+    public decimal AwayTeamOdd { get; set; }
 
     /// <summary>
     /// Gets or sets the home team score.

@@ -1,23 +1,32 @@
 ﻿namespace Spanish.Football.League.Services
 {
     using System;
+    using Microsoft.Extensions.Logging;
+    using Spanish.Football.League.Common.Models;
     using Spanish.Football.League.Services.Interfaces;
 
     /// <inheritdoc />
-    public class GameEngineService : IGameEngineService
+    public class GameEngineService(ILogger<GameEngineService> logger)
+        : IGameEngineService
     {
         private readonly Random random = new ();
 
         /// <inheritdoc />
-        public (int HomeScore, int AwayScore) GenerateMatchScore(decimal homeTeamWeight, decimal awayTeamWeight)
+        public MatchScore GenerateMatchScore(decimal homeTeamWeight, decimal awayTeamWeight)
         {
+            logger.LogDebug($"{nameof(GenerateMatchScore)} has been invoked with params home team weight {homeTeamWeight} and away team weight {awayTeamWeight}.");
+
             // Home team have an advantage.
             decimal adjustedHomeWeight = homeTeamWeight + 0.05m;
 
-            int homeScore = CalculateGoals(adjustedHomeWeight);
-            int awayScore = CalculateGoals(awayTeamWeight);
+            int homeTeamScore = CalculateGoals(adjustedHomeWeight);
+            int awayTeamScore = CalculateGoals(awayTeamWeight);
 
-            return (homeScore, awayScore);
+            return new MatchScore
+            {
+                HomeTeamScore = homeTeamScore,
+                AwayTeamScore = awayTeamScore,
+            };
         }
 
         /// <summary>

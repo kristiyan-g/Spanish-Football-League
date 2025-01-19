@@ -12,7 +12,7 @@ using Spanish.Football.League.Database;
 namespace Spanish.Football.League.Database.Migrations
 {
     [DbContext(typeof(SpanishFootballLeagueDbContext))]
-    [Migration("20250116120332_InitialCreate")]
+    [Migration("20250117115335_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -96,6 +96,10 @@ namespace Spanish.Football.League.Database.Migrations
                         .HasColumnType("character varying(100)")
                         .HasColumnName("away_team_name");
 
+                    b.Property<decimal>("AwayTeamOdd")
+                        .HasColumnType("numeric")
+                        .HasColumnName("away_team_odd");
+
                     b.Property<int>("AwayTeamScore")
                         .HasColumnType("integer")
                         .HasColumnName("away_team_score");
@@ -108,6 +112,10 @@ namespace Spanish.Football.League.Database.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(100)")
                         .HasColumnName("home_team_name");
+
+                    b.Property<decimal>("HomeTeamOdd")
+                        .HasColumnType("numeric")
+                        .HasColumnName("home_team_odd");
 
                     b.Property<int>("HomeTeamScore")
                         .HasColumnType("integer")
@@ -280,6 +288,11 @@ namespace Spanish.Football.League.Database.Migrations
                     b.Property<int>("SeasonId")
                         .HasColumnType("integer")
                         .HasColumnName("season_id");
+
+                    b.Property<string>("TeamColor")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("team_color");
 
                     b.Property<string>("TeamName")
                         .IsRequired()

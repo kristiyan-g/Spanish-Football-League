@@ -2,6 +2,7 @@
 {
     using System;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using Spanish.Football.League.Common;
     using Spanish.Football.League.Common.Enums;
     using Spanish.Football.League.Common.Models;
@@ -13,6 +14,7 @@
 
     /// <inheritdoc/>
     public class FootballLeagueService(MapperlyProfile mapperly,
+        ILogger<FootballLeagueService> logger,
         IGenericRepository<Team, int> teamRepository,
         IGenericRepository<Match, int> matchRepository,
         IGenericRepository<Season, int> seasonRepository,
@@ -23,11 +25,17 @@
         IGameEngineService gameEngineService)
         : IFootballLeagueService
     {
-        private readonly Random random = new();
+        private readonly Random random = new ();
 
         /// <inheritdoc/>
-        public async Task<int> CreateSeasonAsync(CreateSeasonRequestDto request)
+        public async Task<int?> CreateSeasonAsync(CreateSeasonRequestDto request)
         {
+            var isSeasonExist = await seasonRepository.GetAll().FirstOrDefaultAsync(x => x.SeasonYear == request.SeasonYear);
+            if (isSeasonExist != null)
+            {
+                return null;
+            }
+
             var season = new Season()
             {
                 SeasonYear = request.SeasonYear,
@@ -36,13 +44,58 @@
             await seasonRepository.AddAsync(season);
             await seasonRepository.SaveChangesAsync();
 
-            var teams = GenerateTeams(request.NumberOfTeams, request.NumberOfStrongTeams, request.NumberOfWeakTeams);
-            var matches = await GenerateMatchesAsync(teams, season.Id);
+            var teamsDto = GenerateTeams(request.NumberOfTeams, request.NumberOfStrongTeams, request.NumberOfWeakTeams);
+            var matchDtos = await GenerateMatchesAsync(teamsDto, season.Id);
 
-            await GenerateResultsAsync(teams, matches);
-            await GenerateTeamDetailsAsync(teams, season.Id);
+            await GenerateResultsAsync(teamsDto, matchDtos);
+            await GenerateTeamDetailsAsync(teamsDto, season.Id);
 
             return season.Id;
+        }
+
+        /// <inheritdoc/>
+        public async Task<SeasonResultsResponseDto?> GetSeasonResultsAsync(int seasonId)
+        {
+            var season = await seasonRepository.GetByIdAsync(seasonId);
+            if (season == null)
+            {
+                return null;
+            }
+
+            var result = await resultRepository.GetAll().Where(r => r.SeasonId == seasonId).ToListAsync();
+            var winner = await winnerRepository.GetAll().FirstOrDefaultAsync(w => w.SeasonId == seasonId);
+
+            var resultResponse = mapperly.MapToSeasonResultsResponse(season, result, winner);
+
+            return resultResponse;
+        }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<SeasonStatsResponseDto>?> GetSeasonStatsAsync(int seasonId)
+        {
+            var seasonStats = await seasonStatsRepository.GetAll().Where(s => s.SeasonId == seasonId).OrderByDescending(s => s.Points).ToListAsync();
+            if (seasonStats.Count == 0)
+            {
+                return null;
+            }
+
+            var seasonStatsResponse = mapperly.MapToSeasonStatsResponse(seasonStats);
+
+            return seasonStatsResponse;
+        }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<TeamDetailsResponseDto>?> GetTeamDetailsAsync(int seasonId)
+        {
+            var teamDetails = await teamDetailsRepository.GetAll().Where(t => t.SeasonId == seasonId).OrderByDescending(t => t.ExpectedWinPercentage).ToListAsync();
+            if (teamDetails.Count == 0)
+            {
+                return null;
+            }
+
+            var teamDetailsResponse = mapperly.MapToTeamDetailsResponse(teamDetails);
+
+            return teamDetailsResponse;
         }
 
         /// <summary>
@@ -52,123 +105,141 @@
         /// <param name="numberOfStrongTeams">The number of strong teams.</param>
         /// <param name="numberOfWeakTeams">The number of weak teams.</param>
         /// <returns>A collection of generated teams.</returns>
-        private IEnumerable<Team> GenerateTeams(int numberOfTeams, int numberOfStrongTeams, int numberOfWeakTeams)
+        private IEnumerable<TeamDto> GenerateTeams(int numberOfTeams, int numberOfStrongTeams, int numberOfWeakTeams)
         {
-            var randomTeams = teamRepository.GetAll().AsEnumerable().OrderBy(t => random.Next()).Take(numberOfTeams).ToList();
+            var randomTeams = teamRepository.GetAll().AsEnumerable().OrderBy(t => random.Next()).Take(numberOfTeams);
+            var randomTeamsDto = mapperly.MapToTeamDto(randomTeams).ToList();
 
             for (int i = 0; i < numberOfWeakTeams; i++)
             {
-                randomTeams[i].Weight = RandomWeightGenerator.GenerateRandomWeight(GameConstants.WeakTeamsMinWeight, GameConstants.WeakTeamsMaxWeight);
+                randomTeamsDto[i].Weight = RandomWeightGenerator.GenerateRandomWeight(GameConstants.WeakTeamsMinWeight, GameConstants.WeakTeamsMaxWeight);
             }
 
             for (int i = numberOfWeakTeams; i < numberOfWeakTeams + numberOfStrongTeams; i++)
             {
-                randomTeams[i].Weight = RandomWeightGenerator.GenerateRandomWeight(GameConstants.StrongTeamsMinWeight, GameConstants.StrongTeamsMaxWeight);
+                randomTeamsDto[i].Weight = RandomWeightGenerator.GenerateRandomWeight(GameConstants.StrongTeamsMinWeight, GameConstants.StrongTeamsMaxWeight);
             }
 
             for (int i = numberOfWeakTeams + numberOfStrongTeams; i < numberOfTeams; i++)
             {
-                randomTeams[i].Weight = RandomWeightGenerator.GenerateRandomWeight(GameConstants.WeakTeamsMaxWeight + 0.1m, GameConstants.StrongTeamsMinWeight - 0.1m);
+                randomTeamsDto[i].Weight = RandomWeightGenerator.GenerateRandomWeight(GameConstants.WeakTeamsMaxWeight + 0.1m, GameConstants.StrongTeamsMinWeight - 0.1m);
             }
 
-            return randomTeams;
+            logger.LogDebug($"Completed generating teams. Returning {randomTeamsDto.Count} teams!");
+            return randomTeamsDto;
         }
 
         /// <summary>
         /// Generates matches for the given teams in a specific season.
         /// </summary>
-        /// <param name="teams">The teams participating in the season.</param>
+        /// <param name="teamsDto">The teams participating in the season.</param>
         /// <param name="seasonId">The ID of the season.</param>
         /// <returns>A collection of generated matches.</returns>
-        private async Task<IEnumerable<Match>> GenerateMatchesAsync(IEnumerable<Team> teams, int seasonId)
+        private async Task<IEnumerable<CreateMatchDto>> GenerateMatchesAsync(IEnumerable<TeamDto> teamsDto, int seasonId)
         {
-            var matches = new List<Match>();
-            var teamList = teams.ToList();
+            var matchDtos = new List<CreateMatchDto>();
+            var teamList = teamsDto.ToList();
+            int totalTeams = teamList.Count;
 
-            // First half of the season.
-            for (int i = 0; i < teamList.Count; i++)
+            // Round-Robin logic
+            for (int i = 0; i < totalTeams - 1; i++)
             {
-                for (int j = i + 1; j < teamList.Count; j++)
+                for (int j = 0; j < totalTeams / 2; j++)
                 {
-                    var team1 = teamList[i];
-                    var team2 = teamList[j];
+                    var homeTeam = teamList[j];
+                    var awayTeam = teamList[totalTeams - 1 - j];
 
-                    // Calculate the odds of the teams.
-                    var teamsOdds = OddsCalculator.CalculateOdds(team1.Weight, team2.Weight);
+                    var odds = OddsCalculator.CalculateOdds(homeTeam.Weight, awayTeam.Weight);
 
-                    matches.Add(new Match
+                    matchDtos.Add(new CreateMatchDto
                     {
                         SeasonId = seasonId,
                         SeasonHalf = SeasonHalvesEnum.Spring,
-                        HomeTeamName = team1.Name,
-                        HomeTeamOdd = teamsOdds.HomeTeamOdd,
-                        AwayTeamName = team2.Name,
-                        AwayTeamOdd = teamsOdds.AwayTeamOdd,
+                        HomeTeamName = homeTeam.Name,
+                        AwayTeamName = awayTeam.Name,
+                        HomeTeamOdd = odds.HomeTeamOdd,
+                        AwayTeamOdd = odds.AwayTeamOdd,
                     });
                 }
+
+                // Rotating the teams (without the first team)
+                var lastTeam = teamList[totalTeams - 1];
+                teamList.RemoveAt(totalTeams - 1);
+                teamList.Insert(1, lastTeam);
             }
 
-            // Second half of the season.
-            var secondHalfMatches = new List<Match>();
-            foreach (var match in matches.Where(m => m.SeasonHalf == SeasonHalvesEnum.Spring))
+            // Generating the matches for the secong half
+            var secondHalfMatches = matchDtos.Select(match =>
             {
-                secondHalfMatches.Add(new Match
+                // Rotate the home and away team.
+                var homeTeam = teamsDto.First(t => t.Name == match.AwayTeamName);
+                var awayTeam = teamsDto.First(t => t.Name == match.HomeTeamName);
+
+                var odds = OddsCalculator.CalculateOdds(homeTeam.Weight, awayTeam.Weight);
+
+                return new CreateMatchDto
                 {
                     SeasonId = seasonId,
                     SeasonHalf = SeasonHalvesEnum.Fall,
-                    HomeTeamName = match.AwayTeamName,
-                    HomeTeamOdd = match.AwayTeamOdd,
-                    AwayTeamName = match.HomeTeamName,
-                    AwayTeamOdd = match.HomeTeamOdd,
-                });
-            }
+                    HomeTeamName = homeTeam.Name,
+                    AwayTeamName = awayTeam.Name,
+                    HomeTeamOdd = odds.HomeTeamOdd,
+                    AwayTeamOdd = odds.AwayTeamOdd,
+                };
+            }).ToList();
 
-            matches.AddRange(secondHalfMatches);
+            matchDtos.AddRange(secondHalfMatches);
+
+            var matches = mapperly.MapToMatchEntity(matchDtos);
 
             await matchRepository.AddRangeAsync(matches);
             await matchRepository.SaveChangesAsync();
 
-            return matches;
+            logger.LogDebug($"Sucessfully created {matchDtos.Count} matches!");
+            return matchDtos;
         }
 
         /// <summary>
         /// Generates results for the matches in the season.
         /// </summary>
-        /// <param name="teams">The teams participating in the matches.</param>
-        /// <param name="matches">The matches for which results will be generated.</param>
+        /// <param name="teamsDto">The teams participating in the matches.</param>
+        /// <param name="matchDtos">The matches for which results will be generated.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        private async Task GenerateResultsAsync(IEnumerable<Team> teams, IEnumerable<Match> matches)
+        private async Task GenerateResultsAsync(IEnumerable<TeamDto> teamsDto, IEnumerable<CreateMatchDto> matchDtos)
         {
-            var results = new List<Result>();
+            var resultDtos = new List<CreateResultDto>();
 
-            foreach (var match in matches)
+            foreach (var match in matchDtos)
             {
-                var homeTeam = teams.FirstOrDefault(t => t.Name == match.HomeTeamName);
-                var awayTeam = teams.FirstOrDefault(t => t.Name == match.AwayTeamName);
-
-                if (homeTeam == null || awayTeam == null)
-                {
-                    throw new InvalidOperationException("Match contains invalid team names.");
-                }
+                var homeTeam = teamsDto.FirstOrDefault(t => t.Name == match.HomeTeamName);
+                var awayTeam = teamsDto.FirstOrDefault(t => t.Name == match.AwayTeamName);
 
                 // Use the GameEngineService to generate match scores
-                var (homeScore, awayScore) = gameEngineService.GenerateMatchScore(homeTeam.Weight, awayTeam.Weight);
+                var matchScore = gameEngineService.GenerateMatchScore(homeTeam.Weight, awayTeam.Weight);
 
-                var result = new Result
+                bool isExpected = CalculateIsExpectedFromOdds(match.HomeTeamOdd, match.AwayTeamOdd, matchScore.HomeTeamScore, matchScore.AwayTeamScore);
+
+                var result = new CreateResultDto
                 {
                     SeasonId = match.SeasonId,
-                    SeasonHalf = (int)match.SeasonHalf,
+                    SeasonHalf = match.SeasonHalf,
                     HomeTeamName = match.HomeTeamName,
+                    HomeTeamOdd = match.HomeTeamOdd,
                     AwayTeamName = match.AwayTeamName,
-                    HomeTeamScore = homeScore,
-                    AwayTeamScore = awayScore,
-                    IsExpected = null,
+                    AwayTeamOdd = match.AwayTeamOdd,
+                    HomeTeamScore = matchScore.HomeTeamScore,
+                    AwayTeamScore = matchScore.AwayTeamScore,
+                    IsExpected = isExpected,
                 };
 
-                results.Add(result);
+                resultDtos.Add(result);
             }
 
-            await GenerateSeasonStatsAsync(results);
+            await GenerateSeasonStatsAsync(resultDtos);
+
+            var results = mapperly.MapToResultEntity(resultDtos);
+
+            logger.LogDebug("Sucessfully created results!");
 
             await resultRepository.AddRangeAsync(results);
             await resultRepository.SaveChangesAsync();
@@ -177,19 +248,19 @@
         /// <summary>
         /// Generates season statistics based on the results of the matches.
         /// </summary>
-        /// <param name="results">The results of the matches.</param>
+        /// <param name="resultDtos">The results of the matches.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        private async Task GenerateSeasonStatsAsync(IEnumerable<Result> results)
+        private async Task GenerateSeasonStatsAsync(IEnumerable<CreateResultDto> resultDtos)
         {
-            var seasonStats = new Dictionary<string, SeasonStats>();
+            var seasonStatsDtos = new Dictionary<string, CreateSeasonStatsDto>();
 
-            int seasonId = results.Select(s => s.SeasonId).FirstOrDefault();
+            int seasonId = resultDtos.Select(s => s.SeasonId).FirstOrDefault();
 
-            foreach (var result in results.Where(r => r.SeasonId == seasonId))
+            foreach (var result in resultDtos.Where(r => r.SeasonId == seasonId))
             {
-                if (!seasonStats.ContainsKey(result.HomeTeamName))
+                if (!seasonStatsDtos.ContainsKey(result.HomeTeamName))
                 {
-                    seasonStats[result.HomeTeamName] = new SeasonStats
+                    seasonStatsDtos[result.HomeTeamName] = new CreateSeasonStatsDto
                     {
                         SeasonId = seasonId,
                         TeamName = result.HomeTeamName,
@@ -202,9 +273,9 @@
                     };
                 }
 
-                if (!seasonStats.ContainsKey(result.AwayTeamName))
+                if (!seasonStatsDtos.ContainsKey(result.AwayTeamName))
                 {
-                    seasonStats[result.AwayTeamName] = new SeasonStats
+                    seasonStatsDtos[result.AwayTeamName] = new CreateSeasonStatsDto
                     {
                         SeasonId = seasonId,
                         TeamName = result.AwayTeamName,
@@ -217,12 +288,12 @@
                     };
                 }
 
-                var homeStats = seasonStats[result.HomeTeamName];
+                var homeStats = seasonStatsDtos[result.HomeTeamName];
                 homeStats.ScoredGoals += result.HomeTeamScore;
                 homeStats.ConcededGoals += result.AwayTeamScore;
                 homeStats.GoalDifference = homeStats.ScoredGoals - homeStats.ConcededGoals;
 
-                var awayStats = seasonStats[result.AwayTeamName];
+                var awayStats = seasonStatsDtos[result.AwayTeamName];
                 awayStats.ScoredGoals += result.AwayTeamScore;
                 awayStats.ConcededGoals += result.HomeTeamScore;
                 awayStats.GoalDifference = awayStats.ScoredGoals - awayStats.ConcededGoals;
@@ -243,36 +314,46 @@
                 }
                 else
                 {
-                    homeStats.Points += 1;
-                    awayStats.Points += 1;
+                    homeStats.Points++;
+                    awayStats.Points++;
 
                     homeStats.Draws++;
                     awayStats.Draws++;
                 }
             }
 
-            await seasonStatsRepository.AddRangeAsync(seasonStats.Values);
+            var seasonStats = mapperly.MapToSeasonStatsEntity(seasonStatsDtos.Values);
+
+            logger.LogDebug("Sucessfully created season stats!");
+
+            await seasonStatsRepository.AddRangeAsync(seasonStats);
             await seasonStatsRepository.SaveChangesAsync();
 
-            await GenerateSeasonWinnerAsync(seasonStats.Values);
+            await GenerateSeasonWinnerAsync(seasonStatsDtos.Values);
         }
 
         /// <summary>
         /// Generates a season winner based on the season statistics.
         /// </summary>
-        /// <param name="seasonStats">The statistics for the teams in the season.</param>
+        /// <param name="seasonStatsDtos">The statistics for the teams in the season.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        private async Task GenerateSeasonWinnerAsync(IEnumerable<SeasonStats> seasonStats)
+        private async Task GenerateSeasonWinnerAsync(IEnumerable<CreateSeasonStatsDto> seasonStatsDtos)
         {
-            var winner = new Winner();
+            var winners = seasonStatsDtos.OrderByDescending(t => t.Points).ThenByDescending(t => t.GoalDifference).ThenByDescending(t => t.ScoredGoals).FirstOrDefault();
 
-            var winners = seasonStats.OrderByDescending(t => t.Points).ThenByDescending(t => t.GoalDifference).ThenByDescending(t => t.ScoredGoals).FirstOrDefault();
+            var winnerDto = new CreateWinnerDto()
+            {
+                SeasonId = winners.SeasonId,
+                WinnerTeamName = winners.TeamName,
+                Points = winners.Points,
+            };
 
-            winner.SeasonId = winners.SeasonId;
-            winner.WinnerTeamName = winners.TeamName;
-            winner.Points = winners.Points;
+            var winner = mapperly.MapToWinnerEntity(winnerDto);
+
+            logger.LogDebug("Successfully created winner!");
 
             await winnerRepository.AddAsync(winner);
+            await winnerRepository.SaveChangesAsync();
         }
 
         /// <summary>
@@ -281,27 +362,67 @@
         /// <param name="teams">The teams participating in the season.</param>
         /// <param name="seasonId">The ID of the season.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        private async Task GenerateTeamDetailsAsync(IEnumerable<Team> teams, int seasonId)
+        private async Task GenerateTeamDetailsAsync(IEnumerable<TeamDto> teams, int seasonId)
         {
-            var teamDetails = new List<TeamDetails>();
+            var teamDetailsDto = new List<CreateTeamDetailsDto>();
 
             decimal totalWeight = teams.Sum(t => t.Weight);
 
             foreach (var team in teams)
             {
-                var detail = new TeamDetails
+                var detail = new CreateTeamDetailsDto
                 {
                     SeasonId = seasonId,
                     TeamName = team.Name,
+                    TeamColor = team.Color,
                     Weight = team.Weight,
-                    ExpectedWinPercentage = team.Weight / totalWeight * 100,
+                    ExpectedWinPercentage = Math.Round(team.Weight / totalWeight * 100),
                 };
 
-                teamDetails.Add(detail);
+                teamDetailsDto.Add(detail);
             }
+
+            var teamDetails = mapperly.MapToTeamDetailsEntity(teamDetailsDto);
+
+            logger.LogDebug("Successfully created team details!");
 
             await teamDetailsRepository.AddRangeAsync(teamDetails);
             await teamDetailsRepository.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Calculates whether the match result was expected based on the odds and scores.
+        /// </summary>
+        /// <param name="homeTeamOdd">The odd for the home team.</param>
+        /// <param name="awayTeamOdd">The odd for the away team.</param>
+        /// <param name="homeTeamScore">The score of the home team.</param>
+        /// <param name="awayTeamScore">The score of the away team.</param>
+        /// <returns>
+        /// A boolean indicating whether the result was expected.
+        /// </returns>
+        private bool CalculateIsExpectedFromOdds(decimal homeTeamOdd, decimal awayTeamOdd, int homeTeamScore, int awayTeamScore)
+        {
+            if (homeTeamScore == awayTeamScore && Math.Abs(homeTeamOdd - awayTeamOdd) < 1.5m)
+            {
+                return true;
+            }
+
+            var isHomeTeamExpectedToWin = homeTeamOdd < awayTeamOdd;
+
+            if (homeTeamScore > awayTeamScore)
+            {
+                // Home team won the match
+                return isHomeTeamExpectedToWin;
+            }
+            else if (awayTeamScore > homeTeamScore)
+            {
+                // Away team won the match
+                return !isHomeTeamExpectedToWin;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

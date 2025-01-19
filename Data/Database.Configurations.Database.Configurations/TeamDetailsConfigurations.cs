@@ -24,6 +24,9 @@
                 .HasMaxLength(100)
                 .IsRequired();
 
+            builder.Property(t => t.TeamColor)
+                .IsRequired();
+
             builder.Property(t => t.Weight).
                 IsRequired();
 

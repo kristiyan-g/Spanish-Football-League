@@ -23,12 +23,19 @@
                 .IsRequired();
 
             builder.Property(r => r.SeasonHalf)
+                .HasConversion<int>()
                 .IsRequired();
 
             builder.Property(r => r.HomeTeamName)
                 .IsRequired();
 
+            builder.Property(r => r.HomeTeamOdd)
+                .IsRequired();
+
             builder.Property(r => r.AwayTeamName)
+                .IsRequired();
+
+            builder.Property(r => r.AwayTeamOdd)
                 .IsRequired();
 
             builder.Property(r => r.HomeTeamScore)

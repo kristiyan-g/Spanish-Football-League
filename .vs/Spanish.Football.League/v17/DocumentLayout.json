@@ -7,40 +7,20 @@
       "RelativeMoniker": "D:0:0:{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}|Application\\Spanish.Football.League.Services\\Spanish.Football.League.Services.csproj|solutionrelative:application\\spanish.football.league.services\\footballleagueservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}|Api\\Spanish.Football.League.Api\\Spanish.Football.League.Api.csproj|c:\\work\\net\\spanish-football-league\\api\\spanish.football.league.api\\controllers\\seasoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}|Api\\Spanish.Football.League.Api\\Spanish.Football.League.Api.csproj|solutionrelative:api\\spanish.football.league.api\\controllers\\seasoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}|Api\\Spanish.Football.League.Api\\Spanish.Football.League.Api.csproj|c:\\work\\net\\spanish-football-league\\api\\spanish.football.league.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}|Api\\Spanish.Football.League.Api\\Spanish.Football.League.Api.csproj|solutionrelative:api\\spanish.football.league.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}|Api\\Spanish.Football.League.Api\\Spanish.Football.League.Api.csproj|c:\\work\\net\\spanish-football-league\\api\\spanish.football.league.api\\extensions\\programextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}|Api\\Spanish.Football.League.Api\\Spanish.Football.League.Api.csproj|solutionrelative:api\\spanish.football.league.api\\extensions\\programextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5B864EE6-04A2-45B4-819F-91F120257201}|Application\\Spanish.Football.League.Services.Interfaces\\Spanish.Football.League.Services.Interfaces.csproj|c:\\work\\net\\spanish-football-league\\application\\spanish.football.league.services.interfaces\\ifootballleagueservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5B864EE6-04A2-45B4-819F-91F120257201}|Application\\Spanish.Football.League.Services.Interfaces\\Spanish.Football.League.Services.Interfaces.csproj|solutionrelative:application\\spanish.football.league.services.interfaces\\ifootballleagueservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}|Application\\Spanish.Football.League.Services\\Spanish.Football.League.Services.csproj|c:\\work\\net\\spanish-football-league\\application\\spanish.football.league.services\\mappers\\mapperlyprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}|Application\\Spanish.Football.League.Services\\Spanish.Football.League.Services.csproj|solutionrelative:application\\spanish.football.league.services\\mappers\\mapperlyprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}|Application\\Spanish.Football.League.Services\\Spanish.Football.League.Services.csproj|c:\\work\\net\\spanish-football-league\\application\\spanish.football.league.services\\gameengineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0392CB6A-7F3A-4AD8-9E66-DF976B2F5188}|Application\\Spanish.Football.League.Services\\Spanish.Football.League.Services.csproj|solutionrelative:application\\spanish.football.league.services\\gameengineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{00C3F60B-254F-40BC-9F0C-290E46C25310}|Shared\\Spanish.Football.League.Common\\Spanish.Football.League.Common.csproj|c:\\work\\net\\spanish-football-league\\shared\\spanish.football.league.common\\models\\resultresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{00C3F60B-254F-40BC-9F0C-290E46C25310}|Shared\\Spanish.Football.League.Common\\Spanish.Football.League.Common.csproj|solutionrelative:shared\\spanish.football.league.common\\models\\resultresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{00C3F60B-254F-40BC-9F0C-290E46C25310}|Shared\\Spanish.Football.League.Common\\Spanish.Football.League.Common.csproj|c:\\work\\net\\spanish-football-league\\shared\\spanish.football.league.common\\gameconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{00C3F60B-254F-40BC-9F0C-290E46C25310}|Shared\\Spanish.Football.League.Common\\Spanish.Football.League.Common.csproj|solutionrelative:shared\\spanish.football.league.common\\gameconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{00C3F60B-254F-40BC-9F0C-290E46C25310}|Shared\\Spanish.Football.League.Common\\Spanish.Football.League.Common.csproj|c:\\work\\net\\spanish-football-league\\shared\\spanish.football.league.common\\enums\\seasonhalvesenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{00C3F60B-254F-40BC-9F0C-290E46C25310}|Shared\\Spanish.Football.League.Common\\Spanish.Football.League.Common.csproj|solutionrelative:shared\\spanish.football.league.common\\enums\\seasonhalvesenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{26BC9981-8CEA-471E-8C0D-0F5B78A2FE20}|Data\\Database.Configurations.Database.Configurations\\Spanish.Football.League.Database.Configurations.csproj|c:\\work\\net\\spanish-football-league\\data\\database.configurations.database.configurations\\teamdetailsconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{26BC9981-8CEA-471E-8C0D-0F5B78A2FE20}|Data\\Database.Configurations.Database.Configurations\\Spanish.Football.League.Database.Configurations.csproj|solutionrelative:data\\database.configurations.database.configurations\\teamdetailsconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C929F7E-4DCA-4AB9-A236-63FC12403780}|Shared\\Spanish.Football.League.DomainModels\\Spanish.Football.League.DomainModels.csproj|c:\\work\\net\\spanish-football-league\\shared\\spanish.football.league.domainmodels\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C929F7E-4DCA-4AB9-A236-63FC12403780}|Shared\\Spanish.Football.League.DomainModels\\Spanish.Football.League.DomainModels.csproj|solutionrelative:shared\\spanish.football.league.domainmodels\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}|Api\\Spanish.Football.League.Api\\Spanish.Football.League.Api.csproj|c:\\work\\net\\spanish-football-league\\api\\spanish.football.league.api\\controllers\\seasoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D10EA1F9-A4BF-46D1-8EA4-7FF811D7E87A}|Api\\Spanish.Football.League.Api\\Spanish.Football.League.Api.csproj|solutionrelative:api\\spanish.football.league.api\\controllers\\seasoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,21 +30,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Api\\Spanish.Football.League.Api\\Program.cs",
-              "RelativeDocumentMoniker": "Api\\Spanish.Football.League.Api\\Program.cs",
-              "ToolTip": "C:\\Work\\net\\spanish-football-league\\Api\\Spanish.Football.League.Api\\Program.cs",
-              "RelativeToolTip": "Api\\Spanish.Football.League.Api\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T14:41:17.359Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -75,54 +42,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ProgramExtensions.cs",
-              "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Api\\Spanish.Football.League.Api\\Extensions\\ProgramExtensions.cs",
-              "RelativeDocumentMoniker": "Api\\Spanish.Football.League.Api\\Extensions\\ProgramExtensions.cs",
-              "ToolTip": "C:\\Work\\net\\spanish-football-league\\Api\\Spanish.Football.League.Api\\Extensions\\ProgramExtensions.cs",
-              "RelativeToolTip": "Api\\Spanish.Football.League.Api\\Extensions\\ProgramExtensions.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAACAAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T13:23:58.263Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "SeasonController.cs",
-              "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Api\\Spanish.Football.League.Api\\Controllers\\SeasonController.cs",
-              "RelativeDocumentMoniker": "Api\\Spanish.Football.League.Api\\Controllers\\SeasonController.cs",
-              "ToolTip": "C:\\Work\\net\\spanish-football-league\\Api\\Spanish.Football.League.Api\\Controllers\\SeasonController.cs",
-              "RelativeToolTip": "Api\\Spanish.Football.League.Api\\Controllers\\SeasonController.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAIwC0AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T13:23:45.695Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "MapperlyProfile.cs",
               "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Application\\Spanish.Football.League.Services\\Mappers\\MapperlyProfile.cs",
               "RelativeDocumentMoniker": "Application\\Spanish.Football.League.Services\\Mappers\\MapperlyProfile.cs",
               "ToolTip": "C:\\Work\\net\\spanish-football-league\\Application\\Spanish.Football.League.Services\\Mappers\\MapperlyProfile.cs",
               "RelativeToolTip": "Application\\Spanish.Football.League.Services\\Mappers\\MapperlyProfile.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T12:49:51.719Z",
+              "WhenOpened": "2025-01-19T00:24:19.948Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "IFootballLeagueService.cs",
-              "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Application\\Spanish.Football.League.Services.Interfaces\\IFootballLeagueService.cs",
-              "RelativeDocumentMoniker": "Application\\Spanish.Football.League.Services.Interfaces\\IFootballLeagueService.cs",
-              "ToolTip": "C:\\Work\\net\\spanish-football-league\\Application\\Spanish.Football.League.Services.Interfaces\\IFootballLeagueService.cs",
-              "RelativeToolTip": "Application\\Spanish.Football.League.Services.Interfaces\\IFootballLeagueService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA2AAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "ResultResponseDto.cs",
+              "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Shared\\Spanish.Football.League.Common\\Models\\ResultResponseDto.cs",
+              "RelativeDocumentMoniker": "Shared\\Spanish.Football.League.Common\\Models\\ResultResponseDto.cs",
+              "ToolTip": "C:\\Work\\net\\spanish-football-league\\Shared\\Spanish.Football.League.Common\\Models\\ResultResponseDto.cs",
+              "RelativeToolTip": "Shared\\Spanish.Football.League.Common\\Models\\ResultResponseDto.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAsAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T12:32:41.571Z",
+              "WhenOpened": "2025-01-19T00:19:05.659Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SeasonHalvesEnum.cs",
+              "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Shared\\Spanish.Football.League.Common\\Enums\\SeasonHalvesEnum.cs",
+              "RelativeDocumentMoniker": "Shared\\Spanish.Football.League.Common\\Enums\\SeasonHalvesEnum.cs",
+              "ToolTip": "C:\\Work\\net\\spanish-football-league\\Shared\\Spanish.Football.League.Common\\Enums\\SeasonHalvesEnum.cs",
+              "RelativeToolTip": "Shared\\Spanish.Football.League.Common\\Enums\\SeasonHalvesEnum.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-19T00:15:41.857Z",
               "EditorCaption": ""
             },
             {
@@ -133,61 +87,22 @@
               "RelativeDocumentMoniker": "Application\\Spanish.Football.League.Services\\FootballLeagueService.cs",
               "ToolTip": "C:\\Work\\net\\spanish-football-league\\Application\\Spanish.Football.League.Services\\FootballLeagueService.cs",
               "RelativeToolTip": "Application\\Spanish.Football.League.Services\\FootballLeagueService.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAgwCMAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAOMAAAAAAAAAAAASwN4AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T11:41:14.779Z",
+              "WhenOpened": "2025-01-18T22:36:26.234Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "GameConstants.cs",
-              "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Shared\\Spanish.Football.League.Common\\GameConstants.cs",
-              "RelativeDocumentMoniker": "Shared\\Spanish.Football.League.Common\\GameConstants.cs",
-              "ToolTip": "C:\\Work\\net\\spanish-football-league\\Shared\\Spanish.Football.League.Common\\GameConstants.cs",
-              "RelativeToolTip": "Shared\\Spanish.Football.League.Common\\GameConstants.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAxwA0AAAAwAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "SeasonController.cs",
+              "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Api\\Spanish.Football.League.Api\\Controllers\\SeasonController.cs",
+              "RelativeDocumentMoniker": "Api\\Spanish.Football.League.Api\\Controllers\\SeasonController.cs",
+              "ToolTip": "C:\\Work\\net\\spanish-football-league\\Api\\Spanish.Football.League.Api\\Controllers\\SeasonController.cs",
+              "RelativeToolTip": "Api\\Spanish.Football.League.Api\\Controllers\\SeasonController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwCsAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T12:02:00.515Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "TeamDetailsConfigurations.cs",
-              "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Data\\Database.Configurations.Database.Configurations\\TeamDetailsConfigurations.cs",
-              "RelativeDocumentMoniker": "Data\\Database.Configurations.Database.Configurations\\TeamDetailsConfigurations.cs",
-              "ToolTip": "C:\\Work\\net\\spanish-football-league\\Data\\Database.Configurations.Database.Configurations\\TeamDetailsConfigurations.cs",
-              "RelativeToolTip": "Data\\Database.Configurations.Database.Configurations\\TeamDetailsConfigurations.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAgAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T11:56:08.83Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "GameEngineService.cs",
-              "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Application\\Spanish.Football.League.Services\\GameEngineService.cs",
-              "RelativeDocumentMoniker": "Application\\Spanish.Football.League.Services\\GameEngineService.cs",
-              "ToolTip": "C:\\Work\\net\\spanish-football-league\\Application\\Spanish.Football.League.Services\\GameEngineService.cs",
-              "RelativeToolTip": "Application\\Spanish.Football.League.Services\\GameEngineService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-09T14:05:13.21Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Team.cs",
-              "DocumentMoniker": "C:\\Work\\net\\spanish-football-league\\Shared\\Spanish.Football.League.DomainModels\\Team.cs",
-              "RelativeDocumentMoniker": "Shared\\Spanish.Football.League.DomainModels\\Team.cs",
-              "ToolTip": "C:\\Work\\net\\spanish-football-league\\Shared\\Spanish.Football.League.DomainModels\\Team.cs",
-              "RelativeToolTip": "Shared\\Spanish.Football.League.DomainModels\\Team.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T11:55:32.237Z",
+              "WhenOpened": "2025-01-18T22:36:12.938Z",
               "EditorCaption": ""
             }
           ]

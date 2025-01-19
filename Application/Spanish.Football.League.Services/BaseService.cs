@@ -1,7 +1,7 @@
-﻿using Spanish.Football.League.Services.Interfaces;
-
-namespace Spanish.Football.League.Services
+﻿namespace Spanish.Football.League.Services
 {
+    using Spanish.Football.League.Services.Interfaces;
+
     /// <inheritdoc />
     public class BaseService : IBaseService
     {

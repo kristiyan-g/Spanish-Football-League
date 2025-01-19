@@ -1,7 +1,7 @@
-﻿using System.Text.Json;
-
-namespace Spanish.Football.League.Api.Middlewares
+﻿namespace Spanish.Football.League.Api.Middlewares
 {
+    using System.Text.Json;
+
     /// <summary>
     /// Middleware that handles exceptions thrown during the request processing pipeline.
     /// Catches specific exceptions and logs general exceptions.
