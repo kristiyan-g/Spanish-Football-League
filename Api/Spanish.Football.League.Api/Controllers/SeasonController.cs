@@ -64,7 +64,7 @@
         {
             if (seasonId < 1)
             {
-                var message = "Season ID must be greater that 0!";
+                var message = "Season ID must be greater than 0!";
                 logger.LogWarning(message);
 
                 return BadRequest(message);
@@ -110,7 +110,7 @@
         {
             if (seasonId < 1)
             {
-                var message = "Season ID must be greater that 0!";
+                var message = "Season ID must be greater than 0!";
                 logger.LogWarning(message);
 
                 return BadRequest(message);
