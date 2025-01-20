@@ -62,7 +62,7 @@
                 return null;
             }
 
-            var result = await resultRepository.GetAll().Where(r => r.SeasonId == seasonId).ToListAsync();
+            var result = resultRepository.GetAll().Where(r => r.SeasonId == seasonId);
             var winner = await winnerRepository.GetAll().FirstOrDefaultAsync(w => w.SeasonId == seasonId);
 
             var resultResponse = mapperly.MapToSeasonResultsResponse(season, result, winner);
@@ -73,8 +73,8 @@
         /// <inheritdoc/>
         public async Task<IEnumerable<SeasonStatsResponseDto>?> GetSeasonStatsAsync(int seasonId)
         {
-            var seasonStats = await seasonStatsRepository.GetAll().Where(s => s.SeasonId == seasonId).OrderByDescending(s => s.Points).ToListAsync();
-            if (seasonStats.Count == 0)
+            var seasonStats = seasonStatsRepository.GetAll().Where(s => s.SeasonId == seasonId).OrderByDescending(s => s.Points);
+            if (seasonStats.Count() == 0)
             {
                 return null;
             }
@@ -87,8 +87,8 @@
         /// <inheritdoc/>
         public async Task<IEnumerable<TeamDetailsResponseDto>?> GetTeamDetailsAsync(int seasonId)
         {
-            var teamDetails = await teamDetailsRepository.GetAll().Where(t => t.SeasonId == seasonId).OrderByDescending(t => t.ExpectedWinPercentage).ToListAsync();
-            if (teamDetails.Count == 0)
+            var teamDetails = teamDetailsRepository.GetAll().Where(t => t.SeasonId == seasonId).OrderByDescending(t => t.ExpectedWinPercentage);
+            if (teamDetails.Count() == 0)
             {
                 return null;
             }

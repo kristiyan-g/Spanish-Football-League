@@ -40,6 +40,8 @@
             decimal expectedGoals = 2.5m * teamWeight;
 
             // Calculate the threshold for stopping the random process
+            // e = 2.718
+            // e(-2.5) = 0.082
             decimal threshold = (decimal)Math.Exp((double)-expectedGoals);
 
             int goals = 0;
